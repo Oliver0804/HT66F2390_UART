@@ -1,0 +1,189 @@
+
+Linker Version 8.7.7.220718
+Input Object File: C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ
+Input Object File: C:\Users\icetz\OneDrive\文件\HTK_Project\UART\STARTUP1_L.OBJ
+
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB
+Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib
+
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     0000h     0001h    0002h      CODE               @code (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0002h     0004h    0003h      CODE               @start (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0005h     0012h    000eh      CODE               _builtin_holtek_delay_isr00 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0013h     0029h    0017h      CODE               _Delayms (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     002ah     0032h    0009h      CODE               _send_char (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0033h     0035h    0003h      CODE               _CROM2PROM (CROM2PROM)
+     00h     003ch     003fh    0004h      CODE               @UART0_code (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0040h     00cah    008bh      CODE               _UART0 (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00d7h     00e8h    0012h      CODE               _inituart (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00e9h     00f2h    000ah      CODE               _main (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00f3h     0101h    000fh      CODE               _send_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0102h     0120h    001fh      CODE               _get_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0080h     0080h    0001h      DATA     2         @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0081h     0081h    0001h      DATA     3         @data_rb (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0082h     0082h    0001h      DATA     3         @data_rc (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0083h     0083h    0001h      DATA     7         @data_ra3c (isr:ra~rh)
+     00h     0084h     0084h    0001h      DATA     5         @data_rb3c (isr:ra~rh)
+     00h     0085h     0085h    0001h      DATA     4         @data_rc3c (isr:ra~rh)
+     00h     0086h     0086h    0001h      DATA     2         @data_r13c (isr:ra~rh)
+     00h     0087h     0087h    0001h      DATA     2         @data_r23c (isr:ra~rh)
+     00h     00f2h     00f2h    0001h      DATA     2         @data_r33c (isr:ra~rh)
+     00h     00f3h     00f3h    0001h      DATA     2         @data_r43c (isr:ra~rh)
+     00h     00f4h     00f4h    0001h      DATA     2         @data_r53c (isr:ra~rh)
+     00h     00f5h     00f5h    0001h      DATA     2         @data_r63c (isr:ra~rh)
+     00h     00f6h     00f6h    0001h      DATA     2         @data_r73c (isr:ra~rh)
+
+     Local Sections
+
+     Bank    Start     End      Length     Class    AvgIns    Name
+     00h     00f2h     00f2h    0000h      LOCAL    0         @dummy (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00f2h     00f2h    0000h      LOCAL    0         _main (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00efh     00efh    0000h      LOCAL    0         _inituart (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0088h     0088h    0001h      LOCAL    1         _send_char (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00f0h     00f1h    0002h      LOCAL    2         _Delayms (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00efh     00efh    0001h      LOCAL    2         _builtin_holtek_delay_isr00 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     00efh     00efh    0000h      LOCAL    0         @dummy60 (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     008bh     00eeh    0064h      LOCAL    1         _UART0 (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0088h     008ah    0003h      LOCAL    2         _get_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0089h     008ah    0002h      LOCAL    3         _send_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0088h     0088h    0000h      LOCAL    0         _Crom2Prom (CROM2PROM)
+
+     Public Symbols Information
+     Address            Public by Name
+     0034h              _Crom2Prom
+     0033h              _Crom2PromNext
+     0013h              _Delayms
+     00f0h              _Delayms_2
+     0040h              _UART0
+     000ah              __DELAYY0_isr00
+     0009h              __DELAYY1_isr00
+     0008h              __DELAYY2_isr00
+     0007h              __DELAYY3_isr00
+     0006h              __DELAYY4_isr00
+     0005h              __DELAYY5_isr00
+     00efh              _builtin_holtek_delay_isr00_2
+     0102h              _get_buff
+     0088h              _get_buff_2
+     00d7h              _inituart
+     00e9h              _main
+     00f3h              _send_buff
+     002ah              _send_char
+     0086h              r13c
+     0087h              r23c
+     00f2h              r33c
+     00f3h              r43c
+     00f4h              r53c
+     00f5h              r63c
+     00f6h              r73c
+     0080h              ra
+     0083h              ra3c
+     0081h              rb
+     0084h              rb3c
+     0082h              rc
+     0085h              rc3c
+
+     Address            Public by Value
+     0005h              __DELAYY5_isr00
+     0006h              __DELAYY4_isr00
+     0007h              __DELAYY3_isr00
+     0008h              __DELAYY2_isr00
+     0009h              __DELAYY1_isr00
+     000ah              __DELAYY0_isr00
+     0013h              _Delayms
+     002ah              _send_char
+     0033h              _Crom2PromNext
+     0034h              _Crom2Prom
+     0040h              _UART0
+     0080h              ra
+     0081h              rb
+     0082h              rc
+     0083h              ra3c
+     0084h              rb3c
+     0085h              rc3c
+     0086h              r13c
+     0087h              r23c
+     0088h              _get_buff_2
+     00d7h              _inituart
+     00e9h              _main
+     00efh              _builtin_holtek_delay_isr00_2
+     00f0h              _Delayms_2
+     00f2h              r33c
+     00f3h              _send_buff
+     00f3h              r43c
+     00f4h              r53c
+     00f5h              r63c
+     00f6h              r73c
+     0102h              _get_buff
+
+Warning(L3009) : Same sub function exists between ISR(3CH) CMG and MAIN CMG: _send_char
+
+ROM Usage Statistics
+    Bank      Size      Used     Percentage
+     00h       2000h     010fh    3%
+     01h       2000h     0000h    0%
+     02h       2000h     0000h    0%
+     03h       2000h     0000h    0%
+     04h       2000h     0000h    0%
+     05h       2000h     0000h    0%
+     06h       2000h     0000h    0%
+     07h       2000h     0000h    0%
+     Total     10000h     010fh    0%
+
+RAM Usage Statistics
+    Bank      Size      Used     Percentage
+     00h       0080h     0077h    92%
+     01h       0080h     0000h    0%
+     02h       0080h     0000h    0%
+     03h       0080h     0000h    0%
+     04h       0080h     0000h    0%
+     05h       0080h     0000h    0%
+     06h       0080h     0000h    0%
+     07h       0080h     0000h    0%
+     08h       0080h     0000h    0%
+     09h       0080h     0000h    0%
+     0ah       0080h     0000h    0%
+     0bh       0080h     0000h    0%
+     0ch       0080h     0000h    0%
+     0dh       0080h     0000h    0%
+     0eh       0080h     0000h    0%
+     0fh       0080h     0000h    0%
+     10h       0080h     0000h    0%
+     11h       0080h     0000h    0%
+     12h       0080h     0000h    0%
+     13h       0080h     0000h    0%
+     14h       0080h     0000h    0%
+     15h       0080h     0000h    0%
+     16h       0080h     0000h    0%
+     17h       0080h     0000h    0%
+     18h       0080h     0000h    0%
+     19h       0080h     0000h    0%
+     1ah       0080h     0000h    0%
+     1bh       0080h     0000h    0%
+     1ch       0080h     0000h    0%
+     1dh       0080h     0000h    0%
+     1eh       0080h     0000h    0%
+     1fh       0080h     0000h    0%
+     Total     1000h     0077h    2%
+
+Use Stack Count
+_main: 2
+_UART0: 2
+
+Call Tree
+    @dummy
+        _main (0)
+            _inituart (1)
+            _send_char (1)
+            _Delayms (1)
+                _builtin_holtek_delay_isr00 (2)
+    @dummy60
+        _UART0 (0)
+            _get_buff (1)
+            _send_buff (1)
+                _send_char (2)
+                _Crom2Prom (2)
+
+HLINK: Program entry point at section '@code' (address 0) of file 'C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ'
+
+Total 0 error(s), Total 1 Warning(s)
