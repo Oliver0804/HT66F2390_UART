@@ -1,12 +1,31 @@
 #include <HT66F2390.h>
+#include <stdlib.h>
+
 typedef unsigned long u32;
 typedef unsigned short u16;
 #define fH 8000000
 #define BR 19200       // Baud rate
+
+
+
+
+
+u16 pwm_value = 0;  // For storing value of AT+PWM
+u16 pwr_value = 0;  // For storing value of AT+PWR
+u16 ver_value = 0;  // For storing value of AT+VER
+
+#ifndef NULL
+#define NULL ((void *)0)
+#endif
+
+
+
 void Delayms(u16 del)
 {   u16 i;
     for(i=0;i<del;i++) GCC_DELAY(2000);
 }
+
+
 // Send a single character
 void send_char(char s)
 {
@@ -49,6 +68,107 @@ int get_buff(char *rbuff,char c){
             data_count++;
         }
 }
+
+
+char* intToStr(int value, char* str)
+{
+    char temp[10]; // 臨時陣列
+    int i = 0;
+    int j = 0;
+
+    // 處理0的特殊情況
+    if (value == 0)
+    {
+        str[0] = '0';
+        str[1] = '\0';
+        return str;
+    }
+
+    // 為負數增加負號
+    if (value < 0)
+    {
+        str[j++] = '-';
+        value = -value;
+    }
+
+    // 轉換數字並儲存在臨時陣列中
+    while (value != 0)
+    {
+        temp[i++] = (value % 10) + '0';
+        value /= 10;
+    }
+
+    // 從臨時陣列複製到結果陣列
+    while (i > 0)
+    {
+        str[j++] = temp[--i];
+    }
+
+    str[j] = '\0'; // 結束字符串
+
+    return str;
+}
+
+/*
+AT+CMD?#
+AT+PWM=<val>#
+AT+PWR=<val>#
+AT+VER=<val>#
+*/
+
+void handleATCommand(char *cmd)
+{
+    char response[50];
+    char *endptr = strchr(cmd, '#'); 
+    if (endptr == NULL)
+    {
+        send_buff("Invalid format!\r\n");
+        return;
+    }
+
+    *endptr = '\0';
+
+    if(strncmp(cmd, "AT+PWM=", 7) == 0)
+    {
+        pwm_value = atoi(&cmd[7]);
+        send_buff("PWM value set!\r\n");
+    }
+    else if(strncmp(cmd, "AT+PWR=", 7) == 0)
+    {
+        pwr_value = atoi(&cmd[7]);
+        send_buff("Power value set!\r\n");
+    }
+    else if(strncmp(cmd, "AT+VER=", 7) == 0)
+    {
+        ver_value = atoi(&cmd[7]);
+        send_buff("Version value set!\r\n");
+    }
+    else if(strncmp(cmd, "AT+CMD?", 7) == 0)
+    {
+        // Construct the response manually
+        intToStr(pwm_value, response);
+        send_buff("PWM: ");
+        send_buff(response);
+
+        send_buff(", PWR: ");
+        intToStr(pwr_value, response);
+        send_buff(response);
+
+        send_buff(", VER: ");
+        intToStr(ver_value, response);
+        send_buff(response);
+
+        send_buff("\r\n");
+    }
+    else
+    {
+        send_buff("Unknown command!\r\n");
+    }
+}
+
+
+
+
 void main()
 {   
     inituart();
@@ -61,8 +181,10 @@ void main()
 // UART interrupt, when data is sent to UART, the microcontroller receives the data and sends it back through UART.
 DEFINE_ISR(UART0,0x3C)
 {
-    char buff[100]={'\0'};
-    get_buff(buff,'\n'); // Receive a string (the string must have a newline character)
-    send_buff(buff); // Send the received string back
-    _ur0f = 0;    
+    char buff[100] = {'\0'};
+    get_buff(buff, '\n'); // Receive a string (the string must have a newline character)
+    
+    handleATCommand(buff); // Handle the received AT command
+    
+    _ur0f = 0;
 }
