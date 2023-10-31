@@ -50,7 +50,7 @@ void send_buff(char *s)
 void initpwm(){
 	_pds0=0x12; _pds1=0x02;					//PD0->STP1(R),PD2->PTP2(G),PD4->PTP3(B)
 	_stm1al=0; _stm1ah=0;					//Duty=0	
-	_stm1rp=4;								//PWM ?g??=1024/fINT
+	_stm1rp=1;								//PWM ?g??=1024/fINT
 	_stm1c0=0b00011000;						//fINT=fSYS(8MHz),ST1ON=1
 	_stm1c1=0b10101000;						//PWM???,Active High,STM1RP????g??
 	_ptm2al=0; _ptm2ah=0;					//Duty=0
