@@ -198,9 +198,15 @@ void main()
     {
         send_char('.');
         Delayms(250);
-        _stm1al=(u8)pwm_value; _stm1ah=pwm_value>>8;		//Update Duty(R)
-		_ptm2al=(u8)pwm_value; _ptm2ah=pwm_value>>8;		//Update Duty(G)
-		_ptm3al=(u8)pwm_value; _ptm3ah=pwm_value>>8;		//Update Duty(B)
+        if(pwr_value>=1){
+	        _stm1al=(u8)pwm_value; _stm1ah=pwm_value>>8;		//Update Duty(R)
+			_ptm2al=(u8)pwm_value; _ptm2ah=pwm_value>>8;		//Update Duty(G)
+			_ptm3al=(u8)pwm_value; _ptm3ah=pwm_value>>8;		//Update Duty(B)
+        }else{
+	       	_stm1al=(u8)0; _stm1ah=pwm_value>>8;		//Update Duty(R)
+			_ptm2al=(u8)0; _ptm2ah=pwm_value>>8;		//Update Duty(G)
+			_ptm3al=(u8)0; _ptm3ah=pwm_value>>8;		//Update Duty(B)
+        }
     }
 }
 // UART interrupt, when data is sent to UART, the microcontroller receives the data and sends it back through UART.
