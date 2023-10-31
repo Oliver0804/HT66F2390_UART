@@ -17,23 +17,24 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      00h     012fh     0134h    0006h      CODE               @ROMDATA_BASE (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\STARTUP1_L.OBJ)
      00h     013bh     0186h    004ch      CODE               @crom (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
      00h     0187h     019dh    0017h      CODE               _Delayms (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     019eh     01afh    0012h      CODE               _inituart (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     01b0h     01b9h    000ah      CODE               _main (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     01bah     01c9h    0010h      CODE               _CROM2PROM (CROM2PROM)
-     00h     01cah     01d8h    000fh      CODE               _send_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     01d9h     020fh    0037h      CODE               _builtin_holtek_divmodhi4_isr3c (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
-     00h     0210h     02b2h    00a3h      CODE               _intToStr (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     02b3h     02d1h    001fh      CODE               _builtin_holtek_mulsi3_isr3c (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
-     00h     02d2h     034ah    0079h      CODE               _atoi (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
-     00h     034bh     0382h    0038h      CODE               _strncmp (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
-     00h     0383h     0398h    0016h      CODE               _strchr (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
-     00h     0399h     0487h    00efh      CODE               _handleATCommand (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     0488h     04a6h    001fh      CODE               _get_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     0080h     0080h    0001h      DATA     2         @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     019eh     01cfh    0032h      CODE               _initpwm (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     01d0h     01e1h    0012h      CODE               _inituart (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     01e2h     01fch    001bh      CODE               _main (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     01fdh     020ch    0010h      CODE               _CROM2PROM (CROM2PROM)
+     00h     020dh     021bh    000fh      CODE               _send_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     021ch     0252h    0037h      CODE               _builtin_holtek_divmodhi4_isr3c (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0253h     02f5h    00a3h      CODE               _intToStr (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     02f6h     0314h    001fh      CODE               _builtin_holtek_mulsi3_isr3c (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0315h     038dh    0079h      CODE               _atoi (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
+     00h     038eh     03c5h    0038h      CODE               _strncmp (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
+     00h     03c6h     03dbh    0016h      CODE               _strchr (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
+     00h     03dch     04c7h    00ech      CODE               _handleATCommand (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     04c8h     04e6h    001fh      CODE               _get_buff (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     0080h     0080h    0001h      DATA     6         @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
      00h     0081h     0081h    0001h      DATA     3         @data_rb (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
      00h     0082h     0082h    0001h      DATA     3         @data_rc (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
      00h     0083h     0083h    0001h      DATA     51        @data_ra3c (isr:ra~rh)
-     00h     0084h     0084h    0001h      DATA     53        @data_rb3c (isr:ra~rh)
+     00h     0084h     0084h    0001h      DATA     52        @data_rb3c (isr:ra~rh)
      00h     0085h     0085h    0001h      DATA     25        @data_rc3c (isr:ra~rh)
      00h     0086h     0086h    0001h      DATA     17        @data_rd3c (isr:ra~rh)
      00h     0087h     0087h    0001h      DATA     17        @data_re3c (isr:ra~rh)
@@ -41,14 +42,14 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      00h     0089h     0089h    0001h      DATA     10        @data_rg3c (isr:ra~rh)
      00h     008ah     008ah    0001h      DATA     2         @data_r13c (isr:ra~rh)
      00h     008bh     008bh    0001h      DATA     2         @data_r23c (isr:ra~rh)
-     00h     00dfh     00e0h    0002h      DATA     2         @HCCINIT_ver_value (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     00e1h     00e2h    0002h      DATA     2         @HCCINIT_pwr_value (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     00e3h     00e4h    0002h      DATA     2         @HCCINIT_pwm_value (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
-     00h     00e5h     00e5h    0001h      DATA     2         @data_r33c (isr:ra~rh)
-     00h     00e6h     00e6h    0001h      DATA     2         @data_r43c (isr:ra~rh)
-     00h     00e7h     00e7h    0001h      DATA     2         @data_r53c (isr:ra~rh)
-     00h     00e8h     00e8h    0001h      DATA     2         @data_r63c (isr:ra~rh)
-     00h     00e9h     00e9h    0001h      DATA     2         @data_r73c (isr:ra~rh)
+     00h     00dfh     00dfh    0001h      DATA     3         @HCCINIT_pwm_value (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00e0h     00e1h    0002h      DATA     2         @HCCINIT_ver_value (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00e2h     00e3h    0002h      DATA     2         @HCCINIT_pwr_value (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00e4h     00e4h    0001h      DATA     2         @data_r33c (isr:ra~rh)
+     00h     00e5h     00e5h    0001h      DATA     2         @data_r43c (isr:ra~rh)
+     00h     00e6h     00e6h    0001h      DATA     2         @data_r53c (isr:ra~rh)
+     00h     00e7h     00e7h    0001h      DATA     2         @data_r63c (isr:ra~rh)
+     00h     00e8h     00e8h    0001h      DATA     2         @data_r73c (isr:ra~rh)
 
      Local Sections
 
@@ -56,6 +57,7 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      00h     00dfh     00dfh    0000h      LOCAL    0         @dummy (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
      00h     00dfh     00dfh    0000h      LOCAL    0         _main (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
      00h     00dch     00dch    0000h      LOCAL    0         _inituart (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
+     00h     00dch     00dch    0000h      LOCAL    0         _initpwm (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
      00h     008ch     008ch    0001h      LOCAL    1         _send_char (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
      00h     00ddh     00deh    0002h      LOCAL    2         _Delayms (C:\Users\icetz\OneDrive\文件\HTK_Project\UART\UART.OBJ)
      00h     00dch     00dch    0001h      LOCAL    2         _builtin_holtek_delay_isr00 (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
@@ -74,8 +76,8 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
 
      Public Symbols Information
      Address            Public by Name
-     01bbh              _Crom2Prom
-     01bah              _Crom2PromNext
+     01feh              _Crom2Prom
+     01fdh              _Crom2PromNext
      0187h              _Delayms
      00ddh              _Delayms_2
      0040h              _UART0
@@ -85,37 +87,38 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      0027h              __DELAYY3_isr00
      0026h              __DELAYY4_isr00
      0025h              __DELAYY5_isr00
-     02d2h              _atoi
+     0315h              _atoi
      0098h              _atoi_2
      00dch              _builtin_holtek_delay_isr00_2
-     01d9h              _builtin_holtek_divmodhi4_isr3c
-     02b3h              _builtin_holtek_mulsi3_isr3c
+     021ch              _builtin_holtek_divmodhi4_isr3c
+     02f6h              _builtin_holtek_mulsi3_isr3c
      0092h              _builtin_holtek_mulsi3_isr3c_2
-     01e2h              _builtin_holtek_udivmodhi4_isr3c
-     0488h              _get_buff
+     0225h              _builtin_holtek_udivmodhi4_isr3c
+     04c8h              _get_buff
      008ch              _get_buff_2
-     0399h              _handleATCommand
+     03dch              _handleATCommand
      00a8h              _handleATCommand_2
-     019eh              _inituart
-     0210h              _intToStr
+     019eh              _initpwm
+     01d0h              _inituart
+     0253h              _intToStr
      009ch              _intToStr_2
-     01b0h              _main
-     00e3h              _pwm_value
-     00e1h              _pwr_value
-     01cah              _send_buff
+     01e2h              _main
+     00dfh              _pwm_value
+     00e2h              _pwr_value
+     020dh              _send_buff
      0033h              _send_char
-     0383h              _strchr
+     03c6h              _strchr
      008fh              _strchr_2
-     034bh              _strncmp
+     038eh              _strncmp
      0090h              _strncmp_2
-     00dfh              _ver_value
+     00e0h              _ver_value
      008ah              r13c
      008bh              r23c
-     00e5h              r33c
-     00e6h              r43c
-     00e7h              r53c
-     00e8h              r63c
-     00e9h              r73c
+     00e4h              r33c
+     00e5h              r43c
+     00e6h              r53c
+     00e7h              r63c
+     00e8h              r73c
      0080h              ra
      0083h              ra3c
      0081h              rb
@@ -158,36 +161,37 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      00a8h              _handleATCommand_2
      00dch              _builtin_holtek_delay_isr00_2
      00ddh              _Delayms_2
-     00dfh              _ver_value
-     00e1h              _pwr_value
-     00e3h              _pwm_value
-     00e5h              r33c
-     00e6h              r43c
-     00e7h              r53c
-     00e8h              r63c
-     00e9h              r73c
+     00dfh              _pwm_value
+     00e0h              _ver_value
+     00e2h              _pwr_value
+     00e4h              r33c
+     00e5h              r43c
+     00e6h              r53c
+     00e7h              r63c
+     00e8h              r73c
      012eh              startup_value_1
      0187h              _Delayms
-     019eh              _inituart
-     01b0h              _main
-     01bah              _Crom2PromNext
-     01bbh              _Crom2Prom
-     01cah              _send_buff
-     01d9h              _builtin_holtek_divmodhi4_isr3c
-     01e2h              _builtin_holtek_udivmodhi4_isr3c
-     0210h              _intToStr
-     02b3h              _builtin_holtek_mulsi3_isr3c
-     02d2h              _atoi
-     034bh              _strncmp
-     0383h              _strchr
-     0399h              _handleATCommand
-     0488h              _get_buff
+     019eh              _initpwm
+     01d0h              _inituart
+     01e2h              _main
+     01fdh              _Crom2PromNext
+     01feh              _Crom2Prom
+     020dh              _send_buff
+     021ch              _builtin_holtek_divmodhi4_isr3c
+     0225h              _builtin_holtek_udivmodhi4_isr3c
+     0253h              _intToStr
+     02f6h              _builtin_holtek_mulsi3_isr3c
+     0315h              _atoi
+     038eh              _strncmp
+     03c6h              _strchr
+     03dch              _handleATCommand
+     04c8h              _get_buff
 
 Warning(L3009) : Same sub function exists between ISR(3CH) CMG and MAIN CMG: _send_char
 
 ROM Usage Statistics
     Bank      Size      Used     Percentage
-     00h       2000h     04a1h    14%
+     00h       2000h     04e1h    15%
      01h       2000h     0000h    0%
      02h       2000h     0000h    0%
      03h       2000h     0000h    0%
@@ -195,11 +199,11 @@ ROM Usage Statistics
      05h       2000h     0000h    0%
      06h       2000h     0000h    0%
      07h       2000h     0000h    0%
-     Total     10000h     04a1h    1%
+     Total     10000h     04e1h    1%
 
 RAM Usage Statistics
     Bank      Size      Used     Percentage
-     00h       0080h     006ah    82%
+     00h       0080h     0069h    82%
      01h       0080h     0064h    78%
      02h       0080h     0000h    0%
      03h       0080h     0000h    0%
@@ -231,7 +235,7 @@ RAM Usage Statistics
      1dh       0080h     0000h    0%
      1eh       0080h     0000h    0%
      1fh       0080h     0000h    0%
-     Total     1000h     00ceh    5%
+     Total     1000h     00cdh    5%
 
 Use Stack Count
 _main: 2
@@ -241,6 +245,7 @@ Call Tree
     @dummy
         _main (0)
             _inituart (1)
+            _initpwm (1)
             _send_char (1)
             _Delayms (1)
                 _builtin_holtek_delay_isr00 (2)

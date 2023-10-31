@@ -1,16 +1,21 @@
 #include <HT66F2390.h>
 #include <stdlib.h>
 
-typedef unsigned long u32;
-typedef unsigned short u16;
+
 #define fH 8000000
 #define BR 19200       // Baud rate
 
 
+typedef	unsigned char	u8;
+typedef	char			s8;
+typedef	unsigned short	u16;
+typedef	short			s16;
+typedef	unsigned long	u32;
+typedef	long			s32;
 
 
 
-u16 pwm_value = 0;  // For storing value of AT+PWM
+u8 pwm_value = 0;  // For storing value of AT+PWM
 u16 pwr_value = 0;  // For storing value of AT+PWR
 u16 ver_value = 0;  // For storing value of AT+VER
 
@@ -40,6 +45,22 @@ void send_buff(char *s)
         send_char(*s);
         s++;
     }
+}
+
+void initpwm(){
+	_pds0=0x12; _pds1=0x02;					//PD0->STP1(R),PD2->PTP2(G),PD4->PTP3(B)
+	_stm1al=0; _stm1ah=0;					//Duty=0	
+	_stm1rp=4;								//PWM ?g??=1024/fINT
+	_stm1c0=0b00011000;						//fINT=fSYS(8MHz),ST1ON=1
+	_stm1c1=0b10101000;						//PWM???,Active High,STM1RP????g??
+	_ptm2al=0; _ptm2ah=0;					//Duty=0
+	_ptm2rpl=(u8)1024; _ptm2rph=1024>>8;	//PWM ?g??=1024/fINT
+	_ptm2c0=0b00011000;						//fINT=fSYS(8MHz),PT2ON=1
+	_ptm2c1=0b10101000;						//PWM???, Active High
+	_ptm3al=0; _ptm3ah=0;					//Duty=0
+	_ptm3rpl=(u8)1024; _ptm3rph=1024>>8;;	//PWM ?g??=1024/fINT
+	_ptm3c0=0b00011000;						//fINT=fSYS(8MHz),PT3ON=1
+	_ptm3c1=0b10101000;						//PWM???, Active High}
 }
 // Initialize UART0
 void inituart(){
@@ -172,10 +193,14 @@ void handleATCommand(char *cmd)
 void main()
 {   
     inituart();
+    initpwm();
     while(1)
     {
         send_char('.');
-        Delayms(500);
+        Delayms(250);
+        _stm1al=(u8)pwm_value; _stm1ah=pwm_value>>8;		//Update Duty(R)
+		_ptm2al=(u8)pwm_value; _ptm2ah=pwm_value>>8;		//Update Duty(G)
+		_ptm3al=(u8)pwm_value; _ptm3ah=pwm_value>>8;		//Update Duty(B)
     }
 }
 // UART interrupt, when data is sent to UART, the microcontroller receives the data and sends it back through UART.
