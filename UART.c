@@ -15,8 +15,8 @@ typedef	long			s32;
 
 
 
-u8 pwm_value = 0;  // For storing value of AT+PWM
-u16 pwr_value = 0;  // For storing value of AT+PWR
+u8 pwm_value = 100;  // For storing value of AT+PWM
+u16 pwr_value = 1;  // For storing value of AT+PWR
 u16 ver_value = 0;  // For storing value of AT+VER
 
 #ifndef NULL
@@ -50,13 +50,15 @@ void send_buff(char *s)
 void initpwm(){
 	_pds0=0x12; _pds1=0x02;					//PD0->STP1(R),PD2->PTP2(G),PD4->PTP3(B)
 	_stm1al=0; _stm1ah=0;					//Duty=0	
-	_stm1rp=1;								//PWM ?g??=1024/fINT
+	_stm1rp=4096;								//PWM ?g??=1024/fINT
 	_stm1c0=0b00011000;						//fINT=fSYS(8MHz),ST1ON=1
 	_stm1c1=0b10101000;						//PWM???,Active High,STM1RP????g??
+	
 	_ptm2al=0; _ptm2ah=0;					//Duty=0
 	_ptm2rpl=(u8)1024; _ptm2rph=1024>>8;	//PWM ?g??=1024/fINT
 	_ptm2c0=0b00011000;						//fINT=fSYS(8MHz),PT2ON=1
 	_ptm2c1=0b10101000;						//PWM???, Active High
+	
 	_ptm3al=0; _ptm3ah=0;					//Duty=0
 	_ptm3rpl=(u8)1024; _ptm3rph=1024>>8;;	//PWM ?g??=1024/fINT
 	_ptm3c0=0b00011000;						//fINT=fSYS(8MHz),PT3ON=1
@@ -82,7 +84,7 @@ int get_buff(char *rbuff,char c){
             rdata =_txr_rxr0;
             if(rdata==c)
             {
-                rbuff[data_count]='\0';
+                rbuff[data_count]='\r';
                 return data_count;
             }
             rbuff[data_count]=rdata;
@@ -194,12 +196,15 @@ void main()
 {   
     inituart();
     initpwm();
+	u8 test=0;
     while(1)
     {
         send_char('.');
+        
+       	test=pwm_value>>8;
         Delayms(250);
         if(pwr_value>=1){
-	        _stm1al=(u8)pwm_value; _stm1ah=pwm_value>>8;		//Update Duty(R)
+	        _stm1al=(u8)pwm_value; _stm1ah=pwm_value;		//Update Duty(R)
 			_ptm2al=(u8)pwm_value; _ptm2ah=pwm_value>>8;		//Update Duty(G)
 			_ptm3al=(u8)pwm_value; _ptm3ah=pwm_value>>8;		//Update Duty(B)
         }else{
