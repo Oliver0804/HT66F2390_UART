@@ -1,41 +1,40 @@
-#include <HT66F2390.h>
-#include <stdlib.h>
+#include <HT66F2390.h> // Include the header file for the HT66F2390 microcontroller
+#include <stdlib.h>    // Include the standard library for general functions
 
+#define fH 8000000     // Define the system oscillator frequency as 8 MHz
+#define BR 19200       // Define the UART baud rate as 19200
 
-#define fH 8000000
-#define BR 19200       // Baud rate
+// Type definitions for variable types
+typedef unsigned char u8;    // Type definition for an unsigned 8-bit integer
+typedef char s8;             // Type definition for a signed 8-bit integer
+typedef unsigned short u16;  // Type definition for an unsigned 16-bit integer
+typedef short s16;           // Type definition for a signed 16-bit integer
+typedef unsigned long u32;   // Type definition for an unsigned 32-bit integer
+typedef long s32;            // Type definition for a signed 32-bit integer
 
+// Global variables for storing AT command values
+u8 pwm_value = 100;  // Stores the PWM value from AT+PWM command
+u16 pwr_value = 1;   // Stores the power value from AT+PWR command
+u16 ver_value = 0;   // Stores the version value from AT+VER command
 
-typedef	unsigned char	u8;
-typedef	char			s8;
-typedef	unsigned short	u16;
-typedef	short			s16;
-typedef	unsigned long	u32;
-typedef	long			s32;
-
-
-
-u8 pwm_value = 100;  // For storing value of AT+PWM
-u16 pwr_value = 1;  // For storing value of AT+PWR
-u16 ver_value = 0;  // For storing value of AT+VER
-
+// Define NULL if it's not defined
 #ifndef NULL
 #define NULL ((void *)0)
 #endif
 
-#define		SW0			_pa1						//PA1
-#define		SW0C		_pac1						//PAC1
-#define		SW0PU		_papu1						//PAPU1
+// Define macros for switch input and configuration
+#define SW0 _pa1    // Define switch 0 as PA1
+#define SW0C _pac1  // Configuration register for switch 0
+#define SW0PU _papu1  // Pull-up configuration for switch 0
 
-#define MAGNETS_PER_REVOLUTION 12
-#define INTERVAL_MS 100
-#define MS_PER_MINUTE 60000
-// 全局?量
-volatile u16 magnet_count = 0;  // 磁???
-u16 last_magnet_count = 0;
-u32 timer_mark = 0;  // ????
+#define MAGNETS_PER_REVOLUTION 12  // Number of magnets per wheel revolution
+#define INTERVAL_MS 100            // Sampling interval in milliseconds
+#define MS_PER_MINUTE 60000        // Number of milliseconds in a minute
 
-
+// Global variables
+volatile u16 magnet_count = 0;  // Magnetic sensor count variable
+u16 last_magnet_count = 0;      // Last recorded magnet count
+u32 timer_mark = 0;             // Timer mark for measuring intervals
 
 void Delayms(u16 del)
 {   u16 i;
@@ -59,22 +58,22 @@ void send_buff(char *s)
     }
 }
 
-void initpwm(){
-	_pds0=0x12; _pds1=0x02;					//PD0->STP1(R),PD2->PTP2(G),PD4->PTP3(B)
-	_stm1al=0; _stm1ah=0;					//Duty=0	
-	_stm1rp=4096;								//PWM ?g??=1024/fINT
-	_stm1c0=0b00011000;						//fINT=fSYS(8MHz),ST1ON=1
-	_stm1c1=0b10101000;						//PWM???,Active High,STM1RP????g??
-	
-	_ptm2al=0; _ptm2ah=0;					//Duty=0
-	_ptm2rpl=(u8)1024; _ptm2rph=1024>>8;	//PWM ?g??=1024/fINT
-	_ptm2c0=0b00011000;						//fINT=fSYS(8MHz),PT2ON=1
-	_ptm2c1=0b10101000;						//PWM???, Active High
-	
-	_ptm3al=0; _ptm3ah=0;					//Duty=0
-	_ptm3rpl=(u8)1024; _ptm3rph=1024>>8;;	//PWM ?g??=1024/fINT
-	_ptm3c0=0b00011000;						//fINT=fSYS(8MHz),PT3ON=1
-	_ptm3c1=0b10101000;						//PWM???, Active High}
+void initpwm() {
+    _pds0 = 0x12; _pds1 = 0x02; // Set PD0 as STP1 (Red LED), PD2 as PTP2 (Green LED), PD4 as PTP3 (Blue LED)
+    _stm1al = 0; _stm1ah = 0;   // Set initial duty cycle to 0 for STM1
+    _stm1rp = 4096;             // Set the PWM period for STM1 to 4096 / fINT
+    _stm1c0 = 0b00011000;       // Set the internal clock fINT to system clock fSYS (8MHz), and turn on STM1
+    _stm1c1 = 0b10101000;       // Set PWM mode for STM1, active high, reload period register STM1RP on overflow
+    
+    _ptm2al = 0; _ptm2ah = 0;   // Set initial duty cycle to 0 for PTM2
+    _ptm2rpl = (u8)1024; _ptm2rph = 1024 >> 8; // Set the PWM period for PTM2 to 1024 / fINT
+    _ptm2c0 = 0b00011000;       // Set the internal clock fINT to system clock fSYS (8MHz), and turn on PTM2
+    _ptm2c1 = 0b10101000;       // Set PWM mode for PTM2, active high
+    
+    _ptm3al = 0; _ptm3ah = 0;   // Set initial duty cycle to 0 for PTM3
+    _ptm3rpl = (u8)1024; _ptm3rph = 1024 >> 8; // Set the PWM period for PTM3 to 1024 / fINT
+    _ptm3c0 = 0b00011000;       // Set the internal clock fINT to system clock fSYS (8MHz), and turn on PTM3
+    _ptm3c1 = 0b10101000;       // Set PWM mode for PTM3, active high
 }
 // Initialize UART0
 void inituart(){
@@ -217,131 +216,118 @@ void handleATCommand(char *cmd)
 }
 
 
+void main() {
+    _wdtc = 0b10101111; // Disable watchdog timer
+    inituart(); // Initialize UART
+    initpwm();  // Initialize PWM
+    initInt();  // Initialize interrupts
+    u32 speed = 0;   // Variable to hold the speed calculation
+    u8 set_pwm = 0;  // Variable to adjust PWM duty cycle
 
+    while(1) { // Infinite loop
+        timer_mark++; // Increment timer mark
+        if(timer_mark >= 100) { // Check if 100ms have passed
+            // Calculate speed: RPM = (magnet count * number of milliseconds per minute) / (number of magnets per revolution * interval in milliseconds)
+            speed = (u32)magnet_count * MS_PER_MINUTE / (MAGNETS_PER_REVOLUTION * INTERVAL_MS);
 
-void main()
-{   
-	_wdtc=0b10101111;      // Disable watchdog
-    inituart();
-    initpwm();
-    initInt();
-	u32 speed=0;
-	u8 set_pwm=0;
-    while(1)
-    {
-        //send_char('.');
-        timer_mark++;
-       if(timer_mark >= 100)  // 如果?到100ms
-        {
-            // ?算?速
-            // RPM = (磁??? * 每分?毫秒?) / (每圈磁?? * 每次?量的毫秒?)
-            speed = (u32)magnet_count * 60000 / (12 * 1000);
-
-            // ??速???字符串
+            // Convert speed to string
             char speed_str[10];
             intToStr(speed, speed_str);
 
-            // ?送?速到串口
+            // Send the current speed to the serial port
             send_buff("Current Speed: ");
             send_buff(speed_str);
             send_buff(" RPM\r\n");
-            
-           // ??速???字符串
+
+            // Convert magnet count to string
             char count_str[10];
             intToStr(magnet_count, count_str);
 
-            // ?送?速到串口
+            // Send the magnet count to the serial port
             send_buff("magnet_count: ");
             send_buff(count_str);
             send_buff("\r\n");
 
-             // 重置磁???
+            // Reset magnet count
             magnet_count = 0;
 
-
-            // 重置????
+            // Reset timer mark
             timer_mark = 0;
-        
         }
-        Delayms(10);  // 等待大?1毫秒
-        
-		if(speed>0&&speed<=5){
-			//send_buff(" PWM=50\r\n");
-			pwm_value=50;
-		}
-		else if(speed>5&&speed<=10){
-			//send_buff(" PWM=80\r\n");
-			pwm_value=80;
-		}
-		else if(speed>10&&speed<=15){
-			//send_buff(" PWM=110\r\n");
-			pwm_value=110;
-		}		
-		else if(speed>15&&speed<=20){
-			//send_buff(" PWM=140\r\n");
-			pwm_value=140;
-		}		
-		else if(speed>20&&speed<=25){
-			//send_buff(" PWM=170\r\n");
-			pwm_value=170;
-		}
-		else if(speed>25){
-			//send_buff(" PWM=200\r\n");
-			pwm_value=200;
-		}
-		else{
-			//send_buff(" PWM=0\r\n");
-			pwm_value=0;
-		}
-			
-		if(set_pwm>pwm_value){
-			set_pwm--;
-		}
-		else
-		{
-			set_pwm++;
-		}
-        if(pwr_value>=1){
-	        _stm1al=(u8)set_pwm; _stm1ah=set_pwm;		//Update Duty(R)
-			//_ptm2al=(u8)pwm_value; _ptm2ah=pwm_value>>8;		//Update Duty(G)
-			//_ptm3al=(u8)pwm_value; _ptm3ah=pwm_value>>8;		//Update Duty(B)
-        }else{
-	       	_stm1al=(u8)0; _stm1ah=set_pwm>>8;		//Update Duty(R)
-			//_ptm2al=(u8)0; _ptm2ah=pwm_value>>8;		//Update Duty(G)
-			//_ptm3al=(u8)0; _ptm3ah=pwm_value>>8;		//Update Duty(B)
+        Delayms(10); // Wait for roughly 10 milliseconds
+
+        // Set PWM value based on the speed
+        if (speed > 0 && speed <= 5) {
+            pwm_value = 50;
+        } else if (speed > 5 && speed <= 10) {
+            pwm_value = 80;
+        } else if (speed > 10 && speed <= 15) {
+            pwm_value = 110;
+        } else if (speed > 15 && speed <= 20) {
+            pwm_value = 140;
+        } else if (speed > 20 && speed <= 25) {
+            pwm_value = 170;
+        } else if (speed > 25) {
+            pwm_value = 200;
+        } else {
+            pwm_value = 0;
+        }
+
+        // Gradually adjust set_pwm towards pwm_value
+        if (set_pwm > pwm_value) {
+            set_pwm--;
+        } else if (set_pwm < pwm_value) {
+            set_pwm++;
+        }
+
+        // Update PWM duty cycle if power value is greater than or equal to 1
+        if (pwr_value >= 1) {
+            _stm1al = (u8)set_pwm; // Update Duty for STM1 (R)
+            _stm1ah = set_pwm >> 8;
+            // The lines for PTM2 and PTM3 are commented out, assuming they're for Green and Blue LEDs
+        } else {
+            _stm1al = 0; // Set Duty for STM1 (R) to 0 if power value is less than 1
+            _stm1ah = set_pwm >> 8;
+            // The lines for PTM2 and PTM3 are also set to 0, as they're commented out
         }
     }
 }
-// UART interrupt, when data is sent to UART, the microcontroller receives the data and sends it back through UART.
-DEFINE_ISR(UART0,0x3C)
-{
-    char buff[100] = {'\0'};
-    get_buff(buff, '\n'); // Receive a string (the string must have a newline character)
+
+
+// ISR for UART0, triggered when UART data is received
+DEFINE_ISR(UART0, 0x3C) {
+    char buff[100] = {'\0'}; // Initialize a buffer to store received data
+    get_buff(buff, '\n'); // Receive a string from UART until newline character
     
-    handleATCommand(buff); // Handle the received AT command
+    handleATCommand(buff); // Process the received AT command
     
-    _ur0f = 0;
+    _ur0f = 0; // Clear the UART0 interrupt flag
 }
 
-DEFINE_ISR(ISR_Int0,0x04)						//INT0 ISR
-{	
-	
-	_int0e=0;									//?T??INT1???_,??K?u????o???~??@
-	_emi=1;										//?P???_?`?}??
+// ISR for external interrupt INT0
+DEFINE_ISR(ISR_Int0, 0x04) {
+    _int0e = 0; // Disable INT0 interrupts temporarily to prevent re-entry
+    _emi = 1;   // Enable global interrupts
 
-	//send_char('A');
-	_int0f=0;									//??K?u????o???~??@
-	_int0e=1;									//???s?P??INT0???_
+    // Placeholder for code, could be used to send a character 'A' for debugging
+    // send_char('A');
+
+    _int0f = 0; // Clear the interrupt flag for INT0
+    _int0e = 1; // Re-enable INT0 interrupts
 }
 
-DEFINE_ISR(ISR_Int1,0x08)						//INT1 ISR
-{	u8 i,temp;
-	_int1e=0;									//禁能INT1中斷,避免彈跳引發之誤動作
-	_emi=1;										//致能中斷總開關
-	
-	//	send_char('B');
-	// 磁????感器，增加??
-    magnet_count++;
-	_int1f=0;									//避免彈跳引發之誤動作
-	_int1e=1;									//重新致能INT1中斷
+// ISR for external interrupt INT1, possibly for a magnetic sensor
+DEFINE_ISR(ISR_Int1, 0x08) {
+    u8 i, temp;
+    _int1e = 0; // Disable INT1 interrupts to prevent bounce-triggered actions
+
+    _emi = 1;   // Enable global interrupts
+
+    // Placeholder for code, could be used to send a character 'B' for debugging
+    // send_char('B');
+
+    magnet_count++; // Increment the magnet count, used in RPM calculation
+    
+    _int1f = 0; // Clear the interrupt flag for INT1 to prevent bounce effects
+    _int1e = 1; // Re-enable INT1 interrupts
 }

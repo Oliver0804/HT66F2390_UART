@@ -29,14 +29,14 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      00h     02fch     0302h    0007h      CODE               _initInt (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
      00h     0303h     0333h    0031h      CODE               _initpwm (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
      00h     0334h     0345h    0012h      CODE               _inituart (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
-     00h     0346h     04b8h    0173h      CODE               _main (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
-     00h     04b9h     04d7h    001fh      CODE               _builtin_holtek_mulsi3_isr3c (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
-     00h     04d8h     0550h    0079h      CODE               _atoi (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
-     00h     0551h     0588h    0038h      CODE               _strncmp (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
-     00h     0589h     059eh    0016h      CODE               _strchr (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
-     00h     059fh     068ah    00ech      CODE               _handleATCommand (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
-     00h     068bh     06a9h    001fh      CODE               _get_buff (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
-     00h     0080h     0080h    0001h      DATA     14        @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     0346h     04bbh    0176h      CODE               _main (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
+     00h     04bch     04dah    001fh      CODE               _builtin_holtek_mulsi3_isr3c (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
+     00h     04dbh     0553h    0079h      CODE               _atoi (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
+     00h     0554h     058bh    0038h      CODE               _strncmp (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
+     00h     058ch     05a1h    0016h      CODE               _strchr (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\v3_lmrmc.lib)
+     00h     05a2h     068dh    00ech      CODE               _handleATCommand (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
+     00h     068eh     06ach    001fh      CODE               _get_buff (c:\users\icetz\onedrive\文件\htk_project\uart\UART.OBJ)
+     00h     0080h     0080h    0001h      DATA     17        @data_ra (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
      00h     0081h     0081h    0001h      DATA     18        @data_rb (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
      00h     0082h     0082h    0001h      DATA     13        @data_rc (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
      00h     0083h     0083h    0001h      DATA     24        @data_rd (C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x\LIB\LIBHOLTEKGCC.LIB)
@@ -114,18 +114,18 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      01c0h              __DELAYY3_isr00
      01bfh              __DELAYY4_isr00
      01bfh              __DELAYY5_isr00
-     04d8h              _atoi
+     04dbh              _atoi
      00a0h              _atoi_2
      00e4h              _builtin_holtek_delay_isr00_2
      0203h              _builtin_holtek_divmodhi4_isr00
      02ddh              _builtin_holtek_mulsi3_isr00
      00e7h              _builtin_holtek_mulsi3_isr00_2
-     04b9h              _builtin_holtek_mulsi3_isr3c
+     04bch              _builtin_holtek_mulsi3_isr3c
      009ah              _builtin_holtek_mulsi3_isr3c_2
      020ch              _builtin_holtek_udivmodhi4_isr00
-     068bh              _get_buff
+     068eh              _get_buff
      0094h              _get_buff_2
-     059fh              _handleATCommand
+     05a2h              _handleATCommand
      00b0h              _handleATCommand_2
      02fch              _initInt
      0303h              _initpwm
@@ -139,9 +139,9 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      00f7h              _pwr_value
      01f4h              _send_buff
      002fh              _send_char
-     0589h              _strchr
+     058ch              _strchr
      0097h              _strchr_2
-     0551h              _strncmp
+     0554h              _strncmp
      0098h              _strncmp_2
      00f3h              _timer_mark
      00f9h              _ver_value
@@ -241,12 +241,12 @@ Input Library File: C:\Program Files\Holtek MCU Development Tools\HT-IDE3000V8.x
      0303h              _initpwm
      0334h              _inituart
      0346h              _main
-     04b9h              _builtin_holtek_mulsi3_isr3c
-     04d8h              _atoi
-     0551h              _strncmp
-     0589h              _strchr
-     059fh              _handleATCommand
-     068bh              _get_buff
+     04bch              _builtin_holtek_mulsi3_isr3c
+     04dbh              _atoi
+     0554h              _strncmp
+     058ch              _strchr
+     05a2h              _handleATCommand
+     068eh              _get_buff
 
 Warning(L3009) : Same sub function exists between ISR(3CH) CMG and MAIN CMG: _intToStr
 Warning(L3009) : Same sub function exists between ISR(3CH) CMG and MAIN CMG: _send_buff
@@ -254,7 +254,7 @@ Warning(L3009) : Same sub function exists between ISR(3CH) CMG and MAIN CMG: _se
 
 ROM Usage Statistics
     Bank      Size      Used     Percentage
-     00h       2000h     06a2h    20%
+     00h       2000h     06a5h    20%
      01h       2000h     0000h    0%
      02h       2000h     0000h    0%
      03h       2000h     0000h    0%
@@ -262,7 +262,7 @@ ROM Usage Statistics
      05h       2000h     0000h    0%
      06h       2000h     0000h    0%
      07h       2000h     0000h    0%
-     Total     10000h     06a2h    2%
+     Total     10000h     06a5h    2%
 
 RAM Usage Statistics
     Bank      Size      Used     Percentage
