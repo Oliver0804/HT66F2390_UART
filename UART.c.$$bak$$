@@ -28,8 +28,8 @@ u16 ver_value = 0;  // For storing value of AT+VER
 #define		SW0PU		_papu1						//PAPU1
 
 
-// ¥ş§½?¶q
-volatile u16 magnet_count = 0;  // ºÏ???
+// å…¨å±€?é‡
+volatile u16 magnet_count = 0;  // ç£???
 
 
 void Delayms(u16 del)
@@ -89,11 +89,11 @@ void initInt(){
 	//_papu7=1;							//?P??PA3/PA7 Pull-High?q??
 	//_int1ps=1;									//???wINT1?\???PA7?}???{
 	_integ=0b00001010;							//???INT1/INT0???t?t??o????
-	_int0e=1; _int1e=1; _emi=1;					//?P??INT0,INT1?£V??_?`?}??
+	_int0e=1; _int1e=1; _emi=1;					//?P??INT0,INT1?Î¤??_?`?}??
 	}
 	
 void initGPIO(){
-		SW0C=1; SW0PU=1;                      			//³W¹º¬°¿é¤JÄİ©Ê¨Ã­P¯à´£¤É¹qªı
+		SW0C=1; SW0PU=1;                      			//è¦åŠƒç‚ºè¼¸å…¥å±¬æ€§ä¸¦è‡´èƒ½æå‡é›»é˜»
 	}
 // Receive a string from UART, store in array, stopping character is c. Note: The received UART data at the end must have a stopping character c to be received correctly and stored in the character array.
 int get_buff(char *rbuff,char c){
@@ -115,11 +115,11 @@ int get_buff(char *rbuff,char c){
 
 char* intToStr(int value, char* str)
 {
-    char temp[10]; // Á{®É°}¦C
+    char temp[10]; // è‡¨æ™‚é™£åˆ—
     int i = 0;
     int j = 0;
 
-    // ³B²z0ªº¯S®í±¡ªp
+    // è™•ç†0çš„ç‰¹æ®Šæƒ…æ³
     if (value == 0)
     {
         str[0] = '0';
@@ -127,27 +127,27 @@ char* intToStr(int value, char* str)
         return str;
     }
 
-    // ¬°­t¼Æ¼W¥[­t¸¹
+    // ç‚ºè² æ•¸å¢åŠ è² è™Ÿ
     if (value < 0)
     {
         str[j++] = '-';
         value = -value;
     }
 
-    // Âà´«¼Æ¦r¨ÃÀx¦s¦bÁ{®É°}¦C¤¤
+    // è½‰æ›æ•¸å­—ä¸¦å„²å­˜åœ¨è‡¨æ™‚é™£åˆ—ä¸­
     while (value != 0)
     {
         temp[i++] = (value % 10) + '0';
         value /= 10;
     }
 
-    // ±qÁ{®É°}¦C½Æ»s¨ìµ²ªG°}¦C
+    // å¾è‡¨æ™‚é™£åˆ—è¤‡è£½åˆ°çµæœé™£åˆ—
     while (i > 0)
     {
         str[j++] = temp[--i];
     }
 
-    str[j] = '\0'; // µ²§ô¦r²Å¦ê
+    str[j] = '\0'; // çµæŸå­—ç¬¦ä¸²
 
     return str;
 }
@@ -217,35 +217,35 @@ void main()
     inituart();
     initpwm();
     initInt();
-    u32 one_second_mark = 0;  // 1¬í??
+    u32 one_second_mark = 0;  // 1ç§’??
     u16 last_magnet_count = 0;
-    u32 speed;  // ?³t?¶q
+    u32 speed;  // ?é€Ÿ?é‡
     //initGPIO();
 	u8 test=0;
     while(1)
     {
         //send_char('.');
-        // ¨C¬í§ó·s¤@¦¸?³t
-        one_second_mark += 1;  // ¼W¥[1¬í??
-        if(one_second_mark >= 1000)  // ¦pªG?¨ì1¬í
+        // æ¯ç§’æ›´æ–°ä¸€æ¬¡?é€Ÿ
+        one_second_mark += 1;  // å¢åŠ 1ç§’??
+        if(one_second_mark >= 1000)  // å¦‚æœ?åˆ°1ç§’
         {
-            // ?ºâ?³t¡GRPM = (ºÏ??? / ?ºÏ??) * 60¬í
+            // ?ç®—?é€Ÿï¼šRPM = (ç£??? / ?ç£??) * 60ç§’
             speed = ((magnet_count - last_magnet_count) * 60) / 12;
 
-            // ?°e?³t¨ì¦ê¤f
+            // ?é€?é€Ÿåˆ°ä¸²å£
             char speed_str[10];
             intToStr(speed, speed_str);
             send_buff("Current Speed: ");
             send_buff(speed_str);
             send_buff(" RPM\r\n");
 
-            // ­«¸m1¬í??©MºÏ???
+            // é‡ç½®1ç§’??å’Œç£???
             one_second_mark = 0;
             last_magnet_count = magnet_count;
         }
 
-        Delayms(1);  // µ¥«İ¤j?1²@¬í
-
+        Delayms(1);  // ç­‰å¾…å¤§?1æ¯«ç§’
+		switch
         //Delayms(250);
         if(pwr_value>=1){
 	        _stm1al=(u8)pwm_value; _stm1ah=pwm_value;		//Update Duty(R)
@@ -282,12 +282,12 @@ DEFINE_ISR(ISR_Int0,0x04)						//INT0 ISR
 
 DEFINE_ISR(ISR_Int1,0x08)						//INT1 ISR
 {	u8 i,temp;
-	_int1e=0;									//¸T¯àINT1¤¤Â_,Á×§K¼u¸õ¤Şµo¤§»~°Ê§@
-	_emi=1;										//­P¯à¤¤Â_Á`¶}Ãö
+	_int1e=0;									//ç¦èƒ½INT1ä¸­æ–·,é¿å…å½ˆè·³å¼•ç™¼ä¹‹èª¤å‹•ä½œ
+	_emi=1;										//è‡´èƒ½ä¸­æ–·ç¸½é–‹é—œ
 	
 	//	send_char('B');
-	// ºÏ????·P¾¹¡A¼W¥[??
+	// ç£????æ„Ÿå™¨ï¼Œå¢åŠ ??
     magnet_count++;
-	_int1f=0;									//Á×§K¼u¸õ¤Şµo¤§»~°Ê§@
-	_int1e=1;									//­«·s­P¯àINT1¤¤Â_
+	_int1f=0;									//é¿å…å½ˆè·³å¼•ç™¼ä¹‹èª¤å‹•ä½œ
+	_int1e=1;									//é‡æ–°è‡´èƒ½INT1ä¸­æ–·
 }
