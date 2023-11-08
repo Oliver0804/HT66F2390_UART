@@ -27,9 +27,14 @@ u16 ver_value = 0;  // For storing value of AT+VER
 #define		SW0C		_pac1						//PAC1
 #define		SW0PU		_papu1						//PAPU1
 
-
+#define MAGNETS_PER_REVOLUTION 12
+#define INTERVAL_MS 100
+#define MS_PER_MINUTE 60000
 // Ы?秖
 volatile u16 magnet_count = 0;  // 合???
+u16 last_magnet_count = 0;
+u32 timer_mark = 0;  // ????
+
 
 
 void Delayms(u16 del)
@@ -73,7 +78,9 @@ void initpwm(){
 }
 // Initialize UART0
 void inituart(){
-    _wdtc=0b10101111;      // Disable watchdog
+
+	_papu6=1;	
+	_papu7=1;	
     _pas1=0b11000000;      // PA7 for TX0 function, PA6 for RX0 function
     _u0cr1=0b10000000; // Enable UART0, 8-bit data format, odd-even parity function disabled, 1 stop bit, no break character sent.
     _u0cr2=0b11100100;  // Enable transmitter, enable receiver, high-speed baud rate, address match function disabled, RX0 wake-up function disabled, receiver interrupt function enabled, transmitter empty interrupt, transmitter ready interrupt.
@@ -214,45 +221,92 @@ void handleATCommand(char *cmd)
 
 void main()
 {   
+	_wdtc=0b10101111;      // Disable watchdog
     inituart();
     initpwm();
     initInt();
-    u32 one_second_mark = 0;  // 1??
-    u16 last_magnet_count = 0;
-    u32 speed;  // ?硉?秖
-    //initGPIO();
-	u8 test=0;
+	u32 speed=0;
+	u8 set_pwm=0;
     while(1)
     {
         //send_char('.');
-        // –穝Ω?硉
-        one_second_mark += 1;  // 糤1??
-        if(one_second_mark >= 1000)  // 狦?1
+        timer_mark++;
+       if(timer_mark >= 100)  // 狦?100ms
         {
-            // ?衡?硉RPM = (合??? / ?合??) * 60
-            speed = ((magnet_count - last_magnet_count) * 60) / 12;
+            // ?衡?硉
+            // RPM = (合??? * –だ?睝?) / (–伴合?? * –Ω?秖睝?)
+            speed = (u32)magnet_count * 60000 / (12 * 1000);
 
-            // ?癳?硉﹃
+            // ??硉???才﹃
             char speed_str[10];
             intToStr(speed, speed_str);
+
+            // ?癳?硉﹃
             send_buff("Current Speed: ");
             send_buff(speed_str);
             send_buff(" RPM\r\n");
+            
+           // ??硉???才﹃
+            char count_str[10];
+            intToStr(magnet_count, count_str);
 
-            // 竚1??㎝合???
-            one_second_mark = 0;
-            last_magnet_count = magnet_count;
+            // ?癳?硉﹃
+            send_buff("magnet_count: ");
+            send_buff(count_str);
+            send_buff("\r\n");
+
+             // 竚合???
+            magnet_count = 0;
+
+
+            // 竚????
+            timer_mark = 0;
+        
         }
-
-        Delayms(1);  // 单?1睝
-
-        //Delayms(250);
+        Delayms(10);  // 单?1睝
+        
+		if(speed>0&&speed<=5){
+			//send_buff(" PWM=50\r\n");
+			pwm_value=50;
+		}
+		else if(speed>5&&speed<=10){
+			//send_buff(" PWM=80\r\n");
+			pwm_value=80;
+		}
+		else if(speed>10&&speed<=15){
+			//send_buff(" PWM=110\r\n");
+			pwm_value=110;
+		}		
+		else if(speed>15&&speed<=20){
+			//send_buff(" PWM=140\r\n");
+			pwm_value=140;
+		}		
+		else if(speed>20&&speed<=25){
+			//send_buff(" PWM=170\r\n");
+			pwm_value=170;
+		}
+		else if(speed>25){
+			//send_buff(" PWM=200\r\n");
+			pwm_value=200;
+		}
+		else{
+			//send_buff(" PWM=0\r\n");
+			pwm_value=0;
+		}
+			
+		if(set_pwm>pwm_value){
+			set_pwm--;
+		}
+		else
+		{
+			set_pwm++;
+		}
         if(pwr_value>=1){
-	        _stm1al=(u8)pwm_value; _stm1ah=pwm_value;		//Update Duty(R)
+	        _stm1al=(u8)set_pwm; _stm1ah=set_pwm;		//Update Duty(R)
 			//_ptm2al=(u8)pwm_value; _ptm2ah=pwm_value>>8;		//Update Duty(G)
 			//_ptm3al=(u8)pwm_value; _ptm3ah=pwm_value>>8;		//Update Duty(B)
         }else{
-	       	_stm1al=(u8)0; _stm1ah=pwm_value>>8;		//Update Duty(R)
+	       	_stm1al=(u8)0; _stm1ah=set_pwm>>8;		//Update Duty(R)
 			//_ptm2al=(u8)0; _ptm2ah=pwm_value>>8;		//Update Duty(G)
 			//_ptm3al=(u8)0; _ptm3ah=pwm_value>>8;		//Update Duty(B)
         }
@@ -275,7 +329,7 @@ DEFINE_ISR(ISR_Int0,0x04)						//INT0 ISR
 	_int0e=0;									//?T??INT1???_,??K?u????o???~??@
 	_emi=1;										//?P???_?`?}??
 
-	send_char('A');
+	//send_char('A');
 	_int0f=0;									//??K?u????o???~??@
 	_int0e=1;									//???s?P??INT0???_
 }
